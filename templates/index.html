@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopify OAuth - Install App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+            padding: 50px 40px;
+            text-align: center;
+        }
+
+        .logo {
+            margin-bottom: 30px;
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            font-size: 32px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .shop-input-group {
+            margin-bottom: 25px;
+        }
+
+        .shop-input-group label {
+            display: block;
+            text-align: left;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            background: #f9f9f9;
+            transition: all 0.3s ease;
+        }
+
+        .input-wrapper:focus-within {
+            border-color: #667eea;
+            background: white;
+        }
+
+        #shopInput {
+            flex: 1;
+            border: none;
+            padding: 12px 16px;
+            font-size: 14px;
+            background: transparent;
+            outline: none;
+        }
+
+        .input-wrapper::after {
+            content: '.myshopify.com';
+            padding-right: 12px;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 15px;
+            gap: 8px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            font-weight: normal;
+            font-size: 13px;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .scopes-info {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 12px 15px;
+            text-align: left;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 12px;
+        }
+
+        .scopes-info strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .scopes-info ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .scopes-info li {
+            color: #555;
+            margin-bottom: 4px;
+        }
+
+        .scopes-info li:before {
+            content: "✓ ";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 6px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-install {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-install:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-install:active {
+            transform: translateY(0);
+        }
+
+        .btn-install:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .error-message {
+            color: #d32f2f;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .success-message {
+            color: #388e3c;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #999;
+            font-size: 12px;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            button {
+                padding: 10px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <div class="logo-icon">🛍️</div>
+            <h1>Shopify App</h1>
+            <p class="subtitle">Install the app to your store</p>
+        </div>
+
+        <form id="shopifyForm" onsubmit="handleInstall(event)">
+            <div class="shop-input-group">
+                <label for="shopInput">Your Shop Domain</label>
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="shopInput" 
+                        name="shop" 
+                        placeholder="my-store"
+                        pattern="^[a-z0-9\-]*$"
+                        required
+                    >
+                </div>
+                <p class="error-message" id="errorMessage"></p>
+                <p class="success-message" id="successMessage"></p>
+            </div>
+
+            <div class="scopes-info">
+                <strong>Required Permissions:</strong>
+                <ul>
+                    <li>Write Products</li>
+                    <li>Read Products</li>
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <div class="checkbox-group">
+                    <input 
+                        type="checkbox" 
+                        id="agreeTerms" 
+                        name="agreeTerms"
+                        required
+                    >
+                    <label for="agreeTerms">I agree to grant these permissions</label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-install">
+                Install App
+            </button>
+        </form>
+
+        <div class="footer">
+            <p>By installing this app, you agree to our Terms of Service</p>
+            <p style="margin-top: 10px;">
+                <a href="https://docs.shopify.dev" target="_blank">Shopify Docs</a> | 
+                <a href="#" onclick="handleHelp()">Need help?</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const shopInput = document.getElementById('shopInput');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+
+        shopInput.addEventListener('input', () => {
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+        });
+
+        function handleInstall(e) {
+            e.preventDefault();
+            const shop = shopInput.value.trim();
+
+            if (!shop) {
+                showError('Please enter your shop domain');
+                return;
+            }
+
+            if (!validateShopDomain(shop)) {
+                showError('Invalid shop domain format');
+                return;
+            }
+
+            const agreeCheckbox = document.getElementById('agreeTerms');
+            if (!agreeCheckbox.checked) {
+                showError('Please agree to the permissions');
+                return;
+            }
+
+            // Redirect to OAuth endpoint
+            const shopDomain = `${shop}.myshopify.com`;
+            window.location.href = `/install?shop=${encodeURIComponent(shopDomain)}`;
+        }
+
+        function validateShopDomain(shop) {
+            // Allow letters, numbers, and hyphens
+            const regex = /^[a-z0-9\-]+$/i;
+            return regex.test(shop) && shop.length > 0;
+        }
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            successMessage.style.display = 'none';
+        }
+
+        function handleHelp() {
+            alert('For help, please visit our documentation or contact support at support@shopifyapp.com');
+        }
+
+        // Auto-fill from URL if shop parameter provided
+        const urlParams = new URLSearchParams(window.location.search);
+        const shopParam = urlParams.get('shop');
+        if (shopParam) {
+            shopInput.value = shopParam.replace('.myshopify.com', '');
+        }
+    </script>
+</body>
+</html>

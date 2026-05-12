@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request
+from fastapi.templating import Jinja2Templates
 import requests
 from config.settings import (
     SHOPIFY_API_KEY,
@@ -9,13 +10,19 @@ from config.settings import (
 
 app = FastAPI(title="Shopify App")
 
+# Setup Jinja2 templates
+templates = Jinja2Templates(directory="templates")
+
+
+@app.get("/")
+def index(request: Request):
+    """Render the OAuth install page"""
+    return templates.TemplateResponse("index.html", {"request": request})
+
 
 @app.get("/install")
 def install(shop: str):
-    """
-    Shopify OAuth install endpoint.
-    Redirects user to Shopify's authorization page.
-    """
+    """Initiate OAuth flow - redirect to Shopify authorization"""
     install_url = (
         f"https://{shop}/admin/oauth/authorize"
         f"?client_id={SHOPIFY_API_KEY}"
@@ -28,10 +35,7 @@ def install(shop: str):
 
 @app.get("/auth/callback")
 def callback(request: Request):
-    """
-    Shopify OAuth callback endpoint.
-    Exchanges authorization code for access token.
-    """
+    """OAuth callback - exchange code for access token"""
     params = request.query_params
 
     code = params.get("code")
@@ -50,7 +54,15 @@ def callback(request: Request):
 
     access_token = data.get("access_token")
 
-    return {"shop": shop, "access_token": access_token}
+    # Return success page with credentials
+    return templates.TemplateResponse(
+        "success.html",
+        {
+            "request": request,
+            "shop": shop,
+            "access_token": access_token,
+        },
+    )
 
 
 if __name__ == "__main__":

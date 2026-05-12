@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installation Successful - Shopify App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+            padding: 50px 40px;
+            text-align: center;
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 30px;
+            font-size: 40px;
+            animation: scaleIn 0.6s ease;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .details-box {
+            background: #f5f5f5;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: #666;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .detail-value {
+            color: #333;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            word-break: break-all;
+            text-align: right;
+            flex: 1;
+            margin-left: 15px;
+        }
+
+        .access-token-value {
+            display: inline-block;
+            background: #e8f5e9;
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        .copy-button {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .copy-button:hover {
+            background: #f5f5f5;
+            border-color: #999;
+        }
+
+        .copy-button.copied {
+            background: #e8f5e9;
+            border-color: #4caf50;
+            color: #2e7d32;
+        }
+
+        .next-steps {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        .next-steps h3 {
+            color: #e65100;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .next-steps ol {
+            margin-left: 20px;
+            color: #555;
+            font-size: 13px;
+        }
+
+        .next-steps li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #f9f9f9;
+        }
+
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #999;
+            font-size: 12px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .detail-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .detail-value {
+                text-align: left;
+                margin-left: 0;
+                margin-top: 8px;
+            }
+
+            button {
+                padding: 10px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-icon">✓</div>
+        <div class="status-badge">Installation Complete</div>
+
+        <h1>Welcome!</h1>
+        <p class="subtitle">Your Shopify app has been successfully installed and authenticated.</p>
+
+        <div class="details-box">
+            <div class="detail-row">
+                <span class="detail-label">Shop:</span>
+                <span class="detail-value" id="shopValue">Loading...</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Status:</span>
+                <span class="detail-value" style="color: #4caf50;">✓ Active</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Access Token:</span>
+                <span class="detail-value">
+                    <span class="access-token-value" id="tokenValue">●●●●●●●●</span>
+                    <button class="copy-button" onclick="copyToken()">Copy</button>
+                </span>
+            </div>
+        </div>
+
+        <div class="next-steps">
+            <h3>📋 Next Steps:</h3>
+            <ol>
+                <li>Save your access token in a secure location</li>
+                <li>Configure your app settings in the dashboard</li>
+                <li>Start using the app features</li>
+                <li>Monitor app logs and analytics</li>
+            </ol>
+        </div>
+
+        <div class="button-group">
+            <button class="btn-primary" onclick="goToDashboard()">Go to Dashboard</button>
+            <button class="btn-secondary" onclick="viewDocs()">View Docs</button>
+        </div>
+
+        <div class="footer">
+            <p>Installation timestamp: <span id="timestamp"></span></p>
+            <p style="margin-top: 10px;">
+                Need help? <a href="mailto:support@shopifyapp.com" style="color: #667eea; text-decoration: none;">Contact Support</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Parse query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const shop = urlParams.get('shop') || 'Unknown Store';
+        const accessToken = urlParams.get('access_token') || 'Token not found';
+
+        // Display shop name
+        document.getElementById('shopValue').textContent = shop;
+
+        // Display timestamp
+        const now = new Date();
+        document.getElementById('timestamp').textContent = now.toLocaleString();
+
+        // Store token in sessionStorage (in production, this should be handled securely server-side)
+        sessionStorage.setItem('shopifyAccessToken', accessToken);
+
+        function copyToken() {
+            const token = sessionStorage.getItem('shopifyAccessToken');
+            if (token) {
+                navigator.clipboard.writeText(token).then(() => {
+                    const btn = event.target;
+                    btn.classList.add('copied');
+                    btn.textContent = 'Copied!';
+                    setTimeout(() => {
+                        btn.classList.remove('copied');
+                        btn.textContent = 'Copy';
+                    }, 2000);
+                }).catch(err => {
+                    alert('Failed to copy token');
+                });
+            }
+        }
+
+        function goToDashboard() {
+            // Redirect to dashboard or home page
+            window.location.href = '/dashboard';
+        }
+
+        function viewDocs() {
+            // Open documentation
+            window.open('https://docs.shopify.dev', '_blank');
+        }
+
+        // Auto-redirect after 10 seconds (optional)
+        // setTimeout(() => {
+        //     goToDashboard();
+        // }, 10000);
+    </script>
+</body>
+</html>
