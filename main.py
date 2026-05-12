@@ -2,15 +2,21 @@ from fastapi import FastAPI, Request
 import os
 import requests
 from dotenv import load_dotenv
+from config.settings import (
+    SHOPIFY_API_KEY,
+    SHOPIFY_API_SECRET,
+    SHOPIFY_SCOPES,
+    SHOPIFY_REDIRECT_URI,
+)
 
 load_dotenv()
 
 app = FastAPI()
 
-API_KEY = os.getenv("SHOPIFY_API_KEY")
-API_SECRET = os.getenv("SHOPIFY_API_SECRET")
-SCOPES = os.getenv("SHOPIFY_SCOPES")
-REDIRECT_URI = os.getenv("SHOPIFY_REDIRECT_URI")
+API_KEY = SHOPIFY_API_KEY
+API_SECRET = SHOPIFY_API_SECRET
+SCOPES = SHOPIFY_SCOPES
+REDIRECT_URI = SHOPIFY_REDIRECT_URI
 
 @app.get("/install")
 def install(shop: str):

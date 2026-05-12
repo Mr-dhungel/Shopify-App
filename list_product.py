@@ -1,12 +1,10 @@
 import requests
+from config.settings import SHOPIFY_SHOP, SHOPIFY_ACCESS_TOKEN
 
-SHOP = "test-store-3volkicy.myshopify.com"
-TOKEN = "shpua_a76731113c6c51eca1ecfb61ea0541e2"
-
-url = f"https://{SHOP}/admin/api/2026-04/products.json"
+url = f"https://{SHOPIFY_SHOP}/admin/api/2026-04/products.json"
 
 headers = {
-    "X-Shopify-Access-Token": TOKEN
+    "X-Shopify-Access-Token": SHOPIFY_ACCESS_TOKEN
 }
 
 response = requests.get(url, headers=headers)

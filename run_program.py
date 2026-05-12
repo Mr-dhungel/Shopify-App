@@ -1,8 +1,10 @@
 from playwright.sync_api import sync_playwright
-from nywd_scraper import NYWDScraper
+from src.scrapers.nywd_scraper import NYWDScraper
+from src.browser.launcher import launch_brave_browser
+from config.settings import NYWD_DEFAULT_SKUS
 import json
 
-SKUS = ["583295", "583296", "999999"]
+SKUS = NYWD_DEFAULT_SKUS
 
 def stream_scrape(scraper, skus):
 

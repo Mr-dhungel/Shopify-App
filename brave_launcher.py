@@ -1,12 +1,10 @@
 import subprocess
 import time
-
-BRAVE_PATH = r"C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe"
-USER_DATA_DIR = r"C:\Users\Mukunda\AppData\Local\BraveSoftware\Brave-Browser\User Data"
+from config.settings import BRAVE_PATH, BRAVE_USER_DATA_DIR
 
 subprocess.Popen([
     BRAVE_PATH,
-    f'--user-data-dir={USER_DATA_DIR}',
+    f'--user-data-dir={BRAVE_USER_DATA_DIR}',
     '--profile-directory=Default',
     '--remote-debugging-port=9222'
 ])
